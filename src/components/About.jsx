@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, useInView, useAnimation } from 'framer-motion';
-// motion is used for animations throughout this component
 import { GraduationCap, Award, BookOpen, Star, Check, Stethoscope } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import gsap from 'gsap';
