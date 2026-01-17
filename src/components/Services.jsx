@@ -36,7 +36,7 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="section-padding relative overflow-hidden bg-gradient-to-b from-[#0d1117] via-[#0a192f]/50 to-[#0d1117]">
+    <section id="services" className="section-padding relative overflow-hidden bg-linear-to-b from-[#0d1117] via-[#0a192f]/50 to-[#0d1117]">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div 
@@ -70,7 +70,7 @@ const Services = () => {
             Offering comprehensive surgical care with cutting-edge technology and 
             decades of expertise in various specialized procedures.
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
+          <div className="w-20 h-1 bg-linear-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
         {/* Services Grid */}
@@ -94,12 +94,12 @@ const Services = () => {
                   transitionSpeed={2000}
                   className="h-full"
                 >
-                  <div className="group h-full p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-teal-500/30 transition-all duration-500 cursor-pointer relative overflow-hidden">
+                  <div className="group h-full p-8 rounded-2xl bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-teal-500/30 transition-all duration-500 cursor-pointer relative overflow-hidden">
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal-500/0 to-amber-500/0 group-hover:from-teal-500/5 group-hover:to-amber-500/5 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-br from-teal-500/0 to-amber-500/0 group-hover:from-teal-500/5 group-hover:to-amber-500/5 transition-all duration-500" />
                     
                     {/* Icon */}
-                    <div className={`relative w-16 h-16 mb-6 rounded-xl bg-gradient-to-br ${gradientColor} flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                    <div className={`relative w-16 h-16 mb-6 rounded-xl bg-linear-to-br ${gradientColor} flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
 
@@ -119,7 +119,7 @@ const Services = () => {
 
                     {/* Corner Accent */}
                     <div className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className={`absolute top-0 right-0 w-full h-full bg-gradient-to-bl ${gradientColor} opacity-20 rounded-bl-full`} />
+                      <div className={`absolute top-0 right-0 w-full h-full bg-linear-to-bl ${gradientColor} opacity-20 rounded-bl-full`} />
                     </div>
                   </div>
                 </Tilt>
@@ -135,7 +135,7 @@ const Services = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-16 text-center"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl bg-gradient-to-r from-teal-900/30 to-teal-800/20 border border-teal-500/20">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl bg-linear-to-r from-teal-900/30 to-teal-800/20 border border-teal-500/20">
             <div className="text-left">
               <h4 className="font-heading text-lg font-bold text-white">Need a Consultation?</h4>
               <p className="text-gray-400 text-sm">Get expert advice for your specific condition</p>
@@ -143,7 +143,7 @@ const Services = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all"
+              className="px-6 py-3 bg-linear-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all"
             >
               Book Appointment
             </motion.button>

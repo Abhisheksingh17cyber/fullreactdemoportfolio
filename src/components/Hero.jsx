@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { ChevronDown, Award, Users, Clock, Heart } from 'lucide-react';
@@ -10,6 +10,18 @@ const Hero = () => {
   const { doctorInfo } = useAppContext();
   const containerRef = useRef(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  // Pre-generate random values for particles to avoid impure render
+  const particleData = useMemo(() => 
+    [...Array(20)].map((_, i) => ({
+      id: i,
+      initialX: Math.random() * 100,
+      initialY: Math.random() * 100,
+      duration: 3 + Math.random() * 2,
+      delay: Math.random() * 2,
+      left: Math.random() * 100,
+      top: Math.random() * 100
+    })), []);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -44,7 +56,7 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0d1117] via-[#0a192f] to-[#0d1117]">
+      <div className="absolute inset-0 bg-linear-to-br from-[#0d1117] via-[#0a192f] to-[#0d1117]">
         {/* Grid Pattern */}
         <div 
           className="absolute inset-0 opacity-10"
@@ -56,26 +68,26 @@ const Hero = () => {
         />
         
         {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
+        {particleData.map((particle) => (
           <motion.div
-            key={i}
+            key={particle.id}
             className="absolute w-2 h-2 bg-teal-500/30 rounded-full"
             initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight
+              x: particle.initialX,
+              y: particle.initialY
             }}
             animate={{
               y: [0, -30, 0],
               opacity: [0.3, 0.8, 0.3]
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2
+              delay: particle.delay
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`
+              left: `${particle.left}%`,
+              top: `${particle.top}%`
             }}
           />
         ))}
@@ -163,7 +175,7 @@ const Hero = () => {
                   to="contact"
                   smooth={true}
                   duration={800}
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full text-white font-semibold cursor-pointer hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-linear-to-r from-teal-600 to-teal-700 rounded-full text-white font-semibold cursor-pointer hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
                 >
                   <Heart className="w-5 h-5" />
                   Schedule Consultation
@@ -224,12 +236,12 @@ const Hero = () => {
               {/* Main Image Container */}
               <div className="relative w-72 h-72 md:w-80 md:h-80 mx-auto">
                 {/* Gradient Border */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-500 to-amber-500 p-1">
+                <div className="absolute inset-0 rounded-full bg-linear-to-br from-teal-500 to-amber-500 p-1">
                   <div className="w-full h-full rounded-full bg-[#0d1117] flex items-center justify-center overflow-hidden">
                     {/* Placeholder Avatar */}
-                    <div className="w-full h-full bg-gradient-to-br from-teal-800 to-teal-900 flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-teal-800 to-teal-900 flex items-center justify-center">
                       <div className="text-center">
-                        <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center">
+                        <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-linear-to-br from-teal-600 to-teal-700 flex items-center justify-center">
                           <span className="text-6xl font-heading font-bold text-white">G</span>
                         </div>
                         <p className="text-white font-heading text-xl">{doctorInfo.name}</p>
@@ -244,7 +256,7 @@ const Hero = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1 }}
-                  className="absolute -top-4 -right-4 px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full shadow-lg"
+                  className="absolute -top-4 -right-4 px-4 py-2 bg-linear-to-r from-amber-500 to-amber-600 rounded-full shadow-lg"
                 >
                   <span className="text-white font-bold text-sm">Top Rated</span>
                 </motion.div>
@@ -253,7 +265,7 @@ const Hero = () => {
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2 }}
-                  className="absolute -bottom-4 -left-4 px-4 py-2 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full shadow-lg flex items-center gap-2"
+                  className="absolute -bottom-4 -left-4 px-4 py-2 bg-linear-to-r from-teal-600 to-teal-700 rounded-full shadow-lg flex items-center gap-2"
                 >
                   <Award className="w-4 h-4 text-amber-400" />
                   <span className="text-white font-bold text-sm">{doctorInfo.awards} Awards</span>

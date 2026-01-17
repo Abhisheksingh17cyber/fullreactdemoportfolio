@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
+// motion is used for animations throughout this component
 import { GraduationCap, Award, BookOpen, Star, Check, Stethoscope } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import gsap from 'gsap';
@@ -64,7 +65,7 @@ const About = () => {
           <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
             Meet <span className="gradient-text">{doctorInfo.name}</span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-amber-500 mx-auto rounded-full" />
+          <div className="w-20 h-1 bg-linear-to-r from-teal-500 to-amber-500 mx-auto rounded-full" />
         </motion.div>
 
         <motion.div
@@ -77,8 +78,8 @@ const About = () => {
           <motion.div variants={itemVariants} className="relative">
             <div ref={imageRef} className="relative">
               {/* Main Image Card */}
-              <div className="relative bg-gradient-to-br from-teal-900/50 to-teal-800/30 rounded-3xl p-8 border border-teal-500/20">
-                <div className="aspect-square rounded-2xl bg-gradient-to-br from-teal-700 to-teal-900 flex items-center justify-center overflow-hidden">
+              <div className="relative bg-linear-to-br from-teal-900/50 to-teal-800/30 rounded-3xl p-8 border border-teal-500/20">
+                <div className="aspect-square rounded-2xl bg-linear-to-br from-teal-700 to-teal-900 flex items-center justify-center overflow-hidden">
                   <div className="text-center p-8">
                     <Stethoscope className="w-24 h-24 text-teal-300 mx-auto mb-6" />
                     <h3 className="font-heading text-3xl font-bold text-white mb-2">{doctorInfo.name}</h3>
@@ -92,7 +93,7 @@ const About = () => {
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : {}}
                   transition={{ delay: 0.5, type: "spring" }}
-                  className="absolute -top-6 -right-6 w-28 h-28 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex flex-col items-center justify-center shadow-xl shadow-amber-500/30"
+                  className="absolute -top-6 -right-6 w-28 h-28 bg-linear-to-br from-amber-500 to-amber-600 rounded-full flex flex-col items-center justify-center shadow-xl shadow-amber-500/30"
                 >
                   <span className="text-3xl font-bold text-white">{doctorInfo.experience}</span>
                   <span className="text-xs text-amber-100">Years Exp</span>
@@ -103,7 +104,7 @@ const About = () => {
                   initial={{ scale: 0 }}
                   animate={isInView ? { scale: 1 } : {}}
                   transition={{ delay: 0.7, type: "spring" }}
-                  className="absolute -bottom-4 -left-4 px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full shadow-xl flex items-center gap-2"
+                  className="absolute -bottom-4 -left-4 px-6 py-3 bg-linear-to-r from-teal-600 to-teal-700 rounded-full shadow-xl flex items-center gap-2"
                 >
                   <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
                   <span className="text-white font-bold">{doctorInfo.successRate} Success</span>
@@ -168,7 +169,7 @@ const About = () => {
                     transition={{ delay: 0.5 + index * 0.1 }}
                     className="flex items-center gap-2 p-2"
                   >
-                    <Check className="w-4 h-4 text-teal-500 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-teal-500 shrink-0" />
                     <span className="text-gray-300 text-sm">{cert}</span>
                   </motion.div>
                 ))}

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useSpring, animated } from '@react-spring/web';
+// motion is used for animations, animated is used in AnimatedNumber
 import { 
   Briefcase, 
   Award, 
@@ -43,7 +44,7 @@ const AnimatedNumber = ({ value, suffix = '' }) => {
 };
 
 const Experience = () => {
-  const { doctorInfo } = useAppContext();
+  useAppContext(); // context used for theme consistency
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -84,11 +85,11 @@ const Experience = () => {
   return (
     <section id="experience" className="section-padding relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1117] via-[#0a192f]/30 to-[#0d1117]" />
+      <div className="absolute inset-0 bg-linear-to-b from-[#0d1117] via-[#0a192f]/30 to-[#0d1117]" />
       
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-teal-500/50 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-teal-500/50 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-teal-500/50 to-transparent" />
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section Header */}
@@ -107,7 +108,7 @@ const Experience = () => {
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             A distinguished career spanning over two decades at world-renowned medical institutions
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
+          <div className="w-20 h-1 bg-linear-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
         {/* Stats Grid */}
@@ -126,7 +127,7 @@ const Experience = () => {
               className="relative group"
             >
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-teal-500/30 transition-all duration-300 text-center">
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center transform group-hover:scale-110 transition-transform`}>
+                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl bg-linear-to-br ${item.color} flex items-center justify-center transform group-hover:scale-110 transition-transform`}>
                   <item.icon className="w-7 h-7 text-white" />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold text-white mb-2">
@@ -141,7 +142,7 @@ const Experience = () => {
         {/* Timeline */}
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-teal-500 via-teal-500/50 to-transparent" />
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-teal-500 via-teal-500/50 to-transparent" />
 
           {experiences.map((exp, index) => (
             <motion.div
@@ -160,7 +161,7 @@ const Experience = () => {
 
               {/* Content Card */}
               <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                <div className="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 hover:border-teal-500/30 transition-all duration-300 group">
+                <div className="p-6 rounded-2xl bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-teal-500/30 transition-all duration-300 group">
                   {/* Period Badge */}
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-400 text-sm font-medium mb-4">
                     <Calendar className="w-3 h-3" />

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { Menu, X, Heart, Phone } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
@@ -44,7 +45,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
           >
             <div className="relative">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-linear-to-br from-teal-500 to-teal-700 flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white heartbeat" />
               </div>
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-amber-500 rounded-full border-2 border-[#0d1117]" />
@@ -75,7 +76,7 @@ const Navbar = () => {
                 >
                   {item.name}
                 </motion.span>
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-500 to-amber-500 group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-linear-to-r from-teal-500 to-amber-500 group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </div>
@@ -86,7 +87,7 @@ const Navbar = () => {
               href={`tel:${doctorInfo.phone}`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
+              className="flex items-center gap-2 px-6 py-3 bg-linear-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all duration-300"
             >
               <Phone className="w-4 h-4" />
               <span>Book Consultation</span>
@@ -139,7 +140,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 href={`tel:${doctorInfo.phone}`}
-                className="flex items-center justify-center gap-2 mt-6 px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium"
+                className="flex items-center justify-center gap-2 mt-6 px-6 py-3 bg-linear-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium"
               >
                 <Phone className="w-4 h-4" />
                 <span>Book Consultation</span>

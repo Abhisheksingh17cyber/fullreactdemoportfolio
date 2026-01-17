@@ -133,13 +133,13 @@ const Testimonials = () => {
           {/* Custom Navigation Buttons */}
           <button 
             onClick={() => swiperRef.current?.swiper?.slidePrev()}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-teal-500/20 hover:border-teal-500/50 transition-all hidden md:flex"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/5 border border-white/10 items-center justify-center text-white hover:bg-teal-500/20 hover:border-teal-500/50 transition-all hidden md:flex"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button 
             onClick={() => swiperRef.current?.swiper?.slideNext()}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-teal-500/20 hover:border-teal-500/50 transition-all hidden md:flex"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/5 border border-white/10 items-center justify-center text-white hover:bg-teal-500/20 hover:border-teal-500/50 transition-all hidden md:flex"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
