@@ -12,59 +12,59 @@ const Awards = () => {
       title: "Excellence in Surgery Award",
       organization: "American College of Surgeons",
       year: "2023",
-      color: "from-amber-400 to-amber-600"
+      color: "from-amber-400 to-amber-500",
+      glow: "hover:shadow-amber-500/20"
     },
     {
       icon: Medal,
       title: "Pioneer in Robotic Surgery",
       organization: "International Surgical Society",
       year: "2022",
-      color: "from-teal-400 to-teal-600"
+      color: "from-cyan-400 to-cyan-500",
+      glow: "hover:shadow-cyan-500/20"
     },
     {
       icon: Star,
       title: "Top Doctor Award",
       organization: "US News & World Report",
       year: "2023",
-      color: "from-blue-400 to-blue-600"
+      color: "from-violet-400 to-violet-500",
+      glow: "hover:shadow-violet-500/20"
     },
     {
       icon: Crown,
       title: "Lifetime Achievement Award",
       organization: "Society of Thoracic Surgeons",
       year: "2021",
-      color: "from-purple-400 to-purple-600"
+      color: "from-pink-400 to-pink-500",
+      glow: "hover:shadow-pink-500/20"
     },
     {
       icon: Award,
       title: "Innovation in Healthcare",
       organization: "Healthcare Innovation Forum",
       year: "2022",
-      color: "from-red-400 to-red-600"
+      color: "from-emerald-400 to-emerald-500",
+      glow: "hover:shadow-emerald-500/20"
     },
     {
       icon: Sparkles,
       title: "Patient Choice Award",
       organization: "Healthgrades",
       year: "2023",
-      color: "from-green-400 to-green-600"
+      color: "from-blue-400 to-blue-500",
+      glow: "hover:shadow-blue-500/20"
     }
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-[#0a192f]/30 to-[#0d1117]">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(212, 175, 55, 0.5) 1px, transparent 0)`,
-            backgroundSize: '30px 30px'
-          }}
-        />
-      </div>
+    <section className="section-padding relative overflow-hidden bg-slate-950" ref={ref}>
+      {/* Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,#0f172a_0%,#020617_100%)]" />
+      <div className="absolute top-0 right-0 w-125 h-125 bg-amber-500/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 left-0 w-125 h-125 bg-violet-500/5 rounded-full blur-[120px]" />
 
-      <div className="container-custom relative z-10" ref={ref}>
+      <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,16 +72,20 @@ const Awards = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-medium tracking-wider mb-4">
-            RECOGNITION
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
-            Awards & <span className="gradient-text-gold">Honors</span>
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-amber-500/10 to-amber-500/5 border border-amber-500/20 text-amber-400 text-sm font-semibold tracking-widest uppercase mb-6"
+          >
+            <Trophy className="w-4 h-4" />
+            Recognition
+          </motion.span>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            Awards & <span className="bg-linear-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Honors</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Recognition for excellence in surgical care and innovation
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-amber-500 to-amber-600 mx-auto rounded-full mt-6" />
         </motion.div>
 
         {/* Awards Grid */}
@@ -92,24 +96,26 @@ const Awards = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
+              className="group"
             >
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all duration-300">
+              <div className={`p-8 rounded-3xl bg-white/2 border border-white/5 hover:border-white/10 transition-all duration-500 hover:shadow-2xl ${award.glow}`}>
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${award.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <award.icon className="w-7 h-7 text-white" />
+                <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${award.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  <award.icon className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Content */}
-                <h3 className="font-heading text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">
-                  {award.title}
-                </h3>
-                <p className="text-gray-400 text-sm mb-3">{award.organization}</p>
-                
                 {/* Year Badge */}
-                <span className="inline-block px-3 py-1 rounded-full bg-white/5 text-gray-300 text-xs">
+                <span className="inline-block px-3 py-1 rounded-full bg-white/5 text-xs text-gray-400 font-medium mb-4">
                   {award.year}
                 </span>
+
+                {/* Content */}
+                <h3 className="font-heading text-xl font-bold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                  {award.title}
+                </h3>
+                <p className="text-gray-500">
+                  {award.organization}
+                </p>
               </div>
             </motion.div>
           ))}

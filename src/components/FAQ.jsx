@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { ChevronDown, HelpCircle, MessageCircle, Stethoscope } from 'lucide-react';
 
 const FAQ = () => {
   const ref = useRef(null);
@@ -35,86 +35,117 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-[#0d1117] to-[#0a192f]/30" ref={ref}>
+    <section className="section-padding relative overflow-hidden" ref={ref}>
+      {/* Background */}
+      <div className="absolute inset-0 bg-slate-950" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,#0f172a_0%,#020617_100%)]" />
+      <div className="absolute top-0 right-1/4 w-150 h-150 bg-cyan-500/5 rounded-full blur-[150px]" />
+
       <div className="container-custom relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-400 text-sm font-medium tracking-wider mb-4">
-            FAQ
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
-            Frequently Asked <span className="gradient-text">Questions</span>
-          </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Find answers to common questions about procedures, consultations, and care
-          </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
-        </motion.div>
-
-        {/* FAQ Accordion */}
-        <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="rounded-xl bg-white/5 border border-white/10 overflow-hidden"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-left"
-              >
-                <span className="font-heading font-medium text-white pr-4">
-                  {faq.question}
-                </span>
-                <motion.div
-                  animate={{ rotate: openIndex === index ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ChevronDown className="w-5 h-5 text-teal-500 flex-shrink-0" />
-                </motion.div>
-              </button>
-              
-              <motion.div
-                initial={false}
-                animate={{
-                  height: openIndex === index ? 'auto' : 0,
-                  opacity: openIndex === index ? 1 : 0
-                }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <p className="px-6 pb-5 text-gray-400 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-12"
-        >
-          <p className="text-gray-400 mb-4">Still have questions?</p>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all"
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left Side - Header */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="lg:sticky lg:top-32"
           >
-            Contact Us
-          </motion.a>
-        </motion.div>
+            <motion.span 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold tracking-widest uppercase mb-6"
+            >
+              <HelpCircle className="w-4 h-4" />
+              FAQ
+            </motion.span>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Frequently Asked <span className="gradient-text">Questions</span>
+            </h2>
+            <p className="text-gray-400 text-lg mb-8">
+              Find answers to common questions about procedures, consultations, and care
+            </p>
+
+            {/* Decorative Stethoscope */}
+            <div className="hidden lg:block relative">
+              <div className="w-48 h-48 rounded-3xl bg-linear-to-br from-cyan-500/10 to-violet-500/10 border border-cyan-500/10 flex items-center justify-center">
+                <Stethoscope className="w-24 h-24 text-cyan-500/30" />
+              </div>
+            </div>
+
+            {/* Contact CTA */}
+            <div className="mt-8 p-6 rounded-2xl bg-white/2 border border-white/5">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-linear-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-semibold">Still have questions?</p>
+                  <p className="text-gray-400 text-sm">Contact our support team</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Side - FAQ Accordion */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-4"
+          >
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`rounded-2xl overflow-hidden transition-all duration-300 ${
+                  openIndex === index 
+                    ? 'bg-linear-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20' 
+                    : 'bg-white/2 border border-white/5 hover:border-white/10'
+                }`}
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
+                  className="w-full px-6 py-5 flex items-center justify-between text-left"
+                >
+                  <span className={`font-heading font-semibold pr-4 transition-colors ${
+                    openIndex === index ? 'text-cyan-300' : 'text-white'
+                  }`}>
+                    {faq.question}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: openIndex === index ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                      openIndex === index ? 'bg-cyan-500/20' : 'bg-white/5'
+                    }`}
+                  >
+                    <ChevronDown className={`w-5 h-5 transition-colors ${
+                      openIndex === index ? 'text-cyan-400' : 'text-gray-500'
+                    }`} />
+                  </motion.div>
+                </button>
+                
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-6 text-gray-400 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

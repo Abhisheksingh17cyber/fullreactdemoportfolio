@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
 import { 
   Heart, 
   Cpu, 
@@ -8,9 +7,12 @@ import {
   Scissors, 
   Shield, 
   RefreshCw,
-  ArrowRight 
+  ArrowRight,
+  Stethoscope,
+  Calendar
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
+import { Link } from 'react-scroll';
 
 const Services = () => {
   const { doctorInfo } = useAppContext();
@@ -27,30 +29,31 @@ const Services = () => {
   };
 
   const colorMap = {
-    surgery: 'from-teal-500 to-teal-600',
-    heart: 'from-red-500 to-red-600',
-    robot: 'from-blue-500 to-blue-600',
-    emergency: 'from-amber-500 to-amber-600',
-    cancer: 'from-purple-500 to-purple-600',
-    reconstruct: 'from-green-500 to-green-600'
+    surgery: { bg: 'from-cyan-500 to-cyan-600', glow: 'shadow-cyan-500/30', border: 'border-cyan-500/30' },
+    heart: { bg: 'from-pink-500 to-pink-600', glow: 'shadow-pink-500/30', border: 'border-pink-500/30' },
+    robot: { bg: 'from-violet-500 to-violet-600', glow: 'shadow-violet-500/30', border: 'border-violet-500/30' },
+    emergency: { bg: 'from-amber-500 to-amber-600', glow: 'shadow-amber-500/30', border: 'border-amber-500/30' },
+    cancer: { bg: 'from-rose-500 to-rose-600', glow: 'shadow-rose-500/30', border: 'border-rose-500/30' },
+    reconstruct: { bg: 'from-emerald-500 to-emerald-600', glow: 'shadow-emerald-500/30', border: 'border-emerald-500/30' }
   };
 
   return (
-    <section id="services" className="section-padding relative overflow-hidden bg-linear-to-b from-[#0d1117] via-[#0a192f]/50 to-[#0d1117]">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+    <section id="services" className="section-padding relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#0f172a_0%,#020617_100%)]" />
+        <div className="absolute top-0 left-1/4 w-1/2 h-1/2 bg-cyan-500/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-violet-500/5 rounded-full blur-[150px]" />
+        
+        {/* Grid Pattern */}
         <div 
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(15, 118, 110, 0.5) 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(6, 182, 212, 0.5) 1px, transparent 0)`,
+            backgroundSize: '48px 48px'
           }}
         />
       </div>
-
-      {/* Gradient Orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-teal-600/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 -right-32 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl" />
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section Header */}
@@ -58,26 +61,29 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-400 text-sm font-medium tracking-wider mb-4">
-            SPECIALIZATIONS
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold tracking-widest uppercase mb-6"
+          >
+            <Stethoscope className="w-4 h-4" />
+            Specializations
+          </motion.span>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             Surgical <span className="gradient-text">Services</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Offering comprehensive surgical care with cutting-edge technology and 
-            decades of expertise in various specialized procedures.
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            Comprehensive surgical care with cutting-edge technology and decades of expertise in specialized procedures
           </p>
-          <div className="w-20 h-1 bg-linear-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Services Grid - Clean Layout */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {doctorInfo.services.map((service, index) => {
             const IconComponent = iconMap[service.icon] || Heart;
-            const gradientColor = colorMap[service.icon] || 'from-teal-500 to-teal-600';
+            const colors = colorMap[service.icon] || colorMap.surgery;
             
             return (
               <motion.div
@@ -86,67 +92,74 @@ const Services = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Tilt
-                  tiltMaxAngleX={5}
-                  tiltMaxAngleY={5}
-                  perspective={1000}
-                  scale={1.02}
-                  transitionSpeed={2000}
-                  className="h-full"
-                >
-                  <div className="group h-full p-8 rounded-2xl bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-teal-500/30 transition-all duration-500 cursor-pointer relative overflow-hidden">
-                    {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-linear-to-br from-teal-500/0 to-amber-500/0 group-hover:from-teal-500/5 group-hover:to-amber-500/5 transition-all duration-500" />
-                    
-                    {/* Icon */}
-                    <div className={`relative w-16 h-16 mb-6 rounded-xl bg-linear-to-br ${gradientColor} flex items-center justify-center shadow-lg transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300`}>
+                <div className={`group h-full p-8 rounded-3xl bg-white/2 border border-white/5 hover:${colors.border} transition-all duration-500 cursor-pointer relative overflow-hidden`}>
+                  {/* Hover Gradient Background */}
+                  <div className="absolute inset-0 bg-linear-to-br from-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Icon Container */}
+                  <div className="relative mb-6">
+                    <div className={`w-16 h-16 rounded-2xl bg-linear-to-br ${colors.bg} flex items-center justify-center shadow-lg ${colors.glow} transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
-
-                    {/* Content */}
-                    <h3 className="font-heading text-xl font-bold text-white mb-3 group-hover:text-teal-300 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-400 leading-relaxed mb-6">
-                      {service.description}
-                    </p>
-
-                    {/* Learn More Link */}
-                    <div className="flex items-center gap-2 text-teal-400 group-hover:text-teal-300 transition-colors">
-                      <span className="text-sm font-medium">Learn More</span>
-                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform" />
-                    </div>
-
-                    {/* Corner Accent */}
-                    <div className="absolute top-0 right-0 w-20 h-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className={`absolute top-0 right-0 w-full h-full bg-linear-to-bl ${gradientColor} opacity-20 rounded-bl-full`} />
-                    </div>
+                    {/* Glow Effect */}
+                    <div className={`absolute inset-0 w-16 h-16 rounded-2xl bg-linear-to-br ${colors.bg} blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
                   </div>
-                </Tilt>
+
+                  {/* Content */}
+                  <h3 className="font-heading text-xl lg:text-2xl font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-400 leading-relaxed mb-6 text-base">
+                    {service.description}
+                  </p>
+
+                  {/* Learn More Link */}
+                  <div className="flex items-center gap-2 text-gray-500 group-hover:text-cyan-400 transition-all duration-300">
+                    <span className="text-sm font-semibold">Learn More</span>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300" />
+                  </div>
+                </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-16 text-center"
+          className="mt-20"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl bg-linear-to-r from-teal-900/30 to-teal-800/20 border border-teal-500/20">
-            <div className="text-left">
-              <h4 className="font-heading text-lg font-bold text-white">Need a Consultation?</h4>
-              <p className="text-gray-400 text-sm">Get expert advice for your specific condition</p>
+          <div className="relative p-8 lg:p-12 rounded-3xl bg-linear-to-r from-cyan-500/10 via-violet-500/10 to-pink-500/10 border border-white/10 overflow-hidden">
+            {/* Background Glow */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-cyan-500/10 to-transparent" />
+            
+            <div className="relative flex flex-col lg:flex-row items-center justify-between gap-8">
+              <div className="text-center lg:text-left">
+                <h4 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-3">
+                  Need a Consultation?
+                </h4>
+                <p className="text-gray-400 text-lg max-w-xl">
+                  Get expert advice for your specific condition. Schedule a personalized consultation today.
+                </p>
+              </div>
+              <Link
+                to="contact"
+                smooth={true}
+                duration={800}
+              >
+                <motion.button
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group flex items-center gap-3 px-8 py-4 bg-linear-to-r from-cyan-500 to-violet-500 rounded-full text-white font-semibold shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-300 cursor-pointer whitespace-nowrap"
+                >
+                  <Calendar className="w-5 h-5" />
+                  <span>Book Appointment</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </Link>
             </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-6 py-3 bg-linear-to-r from-teal-600 to-teal-700 rounded-full text-white font-medium hover:shadow-lg hover:shadow-teal-500/30 transition-all"
-            >
-              Book Appointment
-            </motion.button>
           </div>
         </motion.div>
       </div>

@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 const CustomCursor = () => {
   const cursorRef = useRef(null);
@@ -48,18 +47,19 @@ const CustomCursor = () => {
     <>
       <div
         ref={cursorRef}
-        className="fixed w-8 h-8 border-2 border-teal-500 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-transform duration-200 ease-out hidden lg:block mix-blend-difference"
+        className="fixed w-10 h-10 border-2 border-blue-500 rounded-full pointer-events-none z-9999 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ease-out hidden lg:block"
         style={{ transform: 'translate(-50%, -50%)' }}
       />
       <div
         ref={cursorDotRef}
-        className="fixed w-2 h-2 bg-teal-500 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden lg:block"
+        className="fixed w-2 h-2 bg-blue-500 rounded-full pointer-events-none z-9999 -translate-x-1/2 -translate-y-1/2 hidden lg:block"
         style={{ transform: 'translate(-50%, -50%)' }}
       />
       <style>{`
         .cursor-hover {
           transform: translate(-50%, -50%) scale(1.5) !important;
-          border-color: #d4af37 !important;
+          border-color: #7c3aed !important;
+          background: rgba(124, 58, 237, 0.1);
         }
       `}</style>
     </>

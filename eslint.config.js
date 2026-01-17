@@ -23,7 +23,9 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Ignore motion/animated (used as JSX namespace components like <motion.div>)
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]|^(motion|animated)$' }],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
 ])

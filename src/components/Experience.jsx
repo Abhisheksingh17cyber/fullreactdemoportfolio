@@ -1,14 +1,14 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useSpring, animated } from '@react-spring/web';
-// motion is used for animations, animated is used in AnimatedNumber
 import { 
   Briefcase, 
   Award, 
   Users, 
   TrendingUp,
   Calendar,
-  MapPin
+  MapPin,
+  ArrowRight
 } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 
@@ -44,7 +44,7 @@ const AnimatedNumber = ({ value, suffix = '' }) => {
 };
 
 const Experience = () => {
-  useAppContext(); // context used for theme consistency
+  useAppContext();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -76,20 +76,20 @@ const Experience = () => {
   ];
 
   const achievements = [
-    { icon: Briefcase, value: "25+", label: "Years Experience", color: "from-teal-500 to-teal-600" },
-    { icon: Award, value: "50+", label: "Medical Awards", color: "from-amber-500 to-amber-600" },
-    { icon: Users, value: "15000+", label: "Surgeries Done", color: "from-blue-500 to-blue-600" },
-    { icon: TrendingUp, value: "99%", label: "Success Rate", color: "from-green-500 to-green-600" }
+    { icon: Briefcase, value: "25+", label: "Years Experience", color: "from-cyan-500 to-cyan-600", glow: "shadow-cyan-500/30" },
+    { icon: Award, value: "50+", label: "Medical Awards", color: "from-amber-500 to-amber-600", glow: "shadow-amber-500/30" },
+    { icon: Users, value: "15000+", label: "Surgeries Done", color: "from-violet-500 to-violet-600", glow: "shadow-violet-500/30" },
+    { icon: TrendingUp, value: "99%", label: "Success Rate", color: "from-emerald-500 to-emerald-600", glow: "shadow-emerald-500/30" }
   ];
 
   return (
     <section id="experience" className="section-padding relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-b from-[#0d1117] via-[#0a192f]/30 to-[#0d1117]" />
-      
-      {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-teal-500/50 to-transparent" />
-      <div className="absolute bottom-0 left-0 w-full h-px bg-linear-to-r from-transparent via-teal-500/50 to-transparent" />
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,#0f172a_0%,#020617_100%)]" />
+        <div className="absolute top-1/3 -left-1/4 w-1/2 h-1/2 bg-violet-500/8 rounded-full blur-[150px]" />
+        <div className="absolute bottom-1/3 -right-1/4 w-1/2 h-1/2 bg-cyan-500/8 rounded-full blur-[150px]" />
+      </div>
 
       <div className="container-custom relative z-10" ref={ref}>
         {/* Section Header */}
@@ -97,98 +97,106 @@ const Experience = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-400 text-sm font-medium tracking-wider mb-4">
-            CAREER JOURNEY
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
+          <motion.span 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-linear-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold tracking-widest uppercase mb-6"
+          >
+            <Briefcase className="w-4 h-4" />
+            Career Journey
+          </motion.span>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             Professional <span className="gradient-text">Experience</span>
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
             A distinguished career spanning over two decades at world-renowned medical institutions
           </p>
-          <div className="w-20 h-1 bg-linear-to-r from-teal-500 to-amber-500 mx-auto rounded-full mt-6" />
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* Stats Grid - Clean Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 mb-24"
         >
           {achievements.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              className="relative group"
+              whileHover={{ y: -5 }}
+              className="group"
             >
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-teal-500/30 transition-all duration-300 text-center">
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl bg-linear-to-br ${item.color} flex items-center justify-center transform group-hover:scale-110 transition-transform`}>
-                  <item.icon className="w-7 h-7 text-white" />
+              <div className="p-6 lg:p-8 rounded-3xl bg-white/2 border border-white/5 hover:border-cyan-500/20 transition-all duration-500 text-center relative overflow-hidden">
+                {/* Hover Glow */}
+                <div className={`absolute inset-0 bg-linear-to-br ${item.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                
+                <div className={`w-14 h-14 lg:w-16 lg:h-16 mx-auto mb-5 rounded-2xl bg-linear-to-br ${item.color} flex items-center justify-center shadow-lg ${item.glow} transform group-hover:scale-110 transition-transform duration-300`}>
+                  <item.icon className="w-7 h-7 lg:w-8 lg:h-8 text-white" />
                 </div>
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">
+                <div className="text-3xl lg:text-4xl font-bold text-white mb-2">
                   <AnimatedNumber value={item.value} suffix={item.value.includes('%') ? '%' : '+'} />
                 </div>
-                <div className="text-gray-400 text-sm">{item.label}</div>
+                <div className="text-gray-500 text-sm font-medium">{item.label}</div>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Timeline */}
-        <div className="relative">
+        {/* Timeline - Clean Modern Design */}
+        <div className="relative max-w-4xl mx-auto">
           {/* Timeline Line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-teal-500 via-teal-500/50 to-transparent" />
+          <div className="absolute left-6 lg:left-1/2 top-0 bottom-0 w-px bg-linear-to-b from-cyan-500/50 via-violet-500/30 to-transparent" />
 
           {experiences.map((exp, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
-              className={`relative flex items-start gap-8 mb-12 ${
-                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 + index * 0.15 }}
+              className={`relative flex items-start gap-8 mb-12 last:mb-0 ${
+                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
               }`}
             >
               {/* Timeline Dot */}
-              <div className="absolute left-8 md:left-1/2 w-4 h-4 -translate-x-1/2 rounded-full bg-teal-500 border-4 border-[#0d1117] z-10">
-                <div className="absolute inset-0 rounded-full bg-teal-500 animate-ping opacity-20" />
+              <div className="absolute left-6 lg:left-1/2 w-3 h-3 -translate-x-1/2 rounded-full bg-linear-to-br from-cyan-500 to-violet-500 z-10 ring-4 ring-slate-900">
+                <div className="absolute inset-0 rounded-full bg-cyan-500 animate-ping opacity-30" />
               </div>
 
               {/* Content Card */}
-              <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                <div className="p-6 rounded-2xl bg-linear-to-br from-white/5 to-white/2 border border-white/10 hover:border-teal-500/30 transition-all duration-300 group">
+              <div className={`ml-14 lg:ml-0 lg:w-[calc(50%-40px)] ${index % 2 === 0 ? 'lg:pr-0' : 'lg:pl-0'}`}>
+                <div className="group p-6 lg:p-8 rounded-3xl bg-white/2 border border-white/5 hover:border-cyan-500/20 transition-all duration-500">
                   {/* Period Badge */}
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-400 text-sm font-medium mb-4">
-                    <Calendar className="w-3 h-3" />
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-linear-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold mb-5">
+                    <Calendar className="w-3.5 h-3.5" />
                     {exp.period}
                   </div>
 
-                  <h3 className="font-heading text-xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">
+                  <h3 className="font-heading text-xl lg:text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">
                     {exp.title}
                   </h3>
                   
-                  <div className="flex items-center gap-4 text-gray-400 text-sm mb-3">
-                    <span className="font-medium">{exp.organization}</span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
+                  <div className="flex flex-wrap items-center gap-3 text-gray-400 text-sm mb-4">
+                    <span className="font-semibold text-gray-300">{exp.organization}</span>
+                    <span className="flex items-center gap-1 text-gray-500">
+                      <MapPin className="w-3.5 h-3.5" />
                       {exp.location}
                     </span>
                   </div>
 
-                  <p className="text-gray-400 mb-4 leading-relaxed">
+                  <p className="text-gray-400 mb-6 leading-relaxed">
                     {exp.description}
                   </p>
 
                   {/* Achievements */}
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {exp.achievements.map((achievement, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                      <div key={i} className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-linear-to-br from-cyan-500 to-violet-500 shrink-0" />
                         <span className="text-gray-300 text-sm">{achievement}</span>
                       </div>
                     ))}
